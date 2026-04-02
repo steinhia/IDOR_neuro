@@ -1,0 +1,18 @@
+# données lourdes
+*.nii
+*.nii.gz
+*.zip
+*.tar
+*.dcm
+
+# outputs pipelines
+derivatives/
+work/
+logs/
+
+# python
+__pycache__/
+*.pyc
+
+# système
+.DS_Store
