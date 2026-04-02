@@ -57,5 +57,5 @@ cd $PREPROCDIR
 # denoising
 [ ! -f dwi_AP.mif ] && mrcat ../raw/dwi_1.mif ../raw/dwi_3.mif dwi_AP.mif
 [ ! -f dwi_PA.mif ] && mrcat ../raw/dwi_2.mif ../raw/dwi_4.mif dwi_PA.mif
-[ ! -f preproc_mask_AP.mif ] && dwi2mask -clean_scale 0 -bvalue_scaling 1 dwi_AP.mif -nthreads $NTHREADS - | maskfilter - dilate preproc_mask_AP.mif -npass 8 -nthreads $NTHREADS # optional
-[ ! -f preproc_mask_PA.mif ] && dwi2mask -clean_scale 0 -bvalue_scaling 1 dwi_PA.mif -nthreads $NTHREADS - | maskfilter - dilate preproc_mask_PA.mif -npass 8 -nthreads $NTHREADS # optional
+[ ! -f preproc_mask_AP.mif ] && dwi2mask -clean_scale 0 dwi_AP.mif -nthreads $NTHREADS - | maskfilter - dilate preproc_mask_AP.mif -npass 8 -nthreads $NTHREADS # optional
+[ ! -f preproc_mask_PA.mif ] && dwi2mask -clean_scale 0 dwi_PA.mif -nthreads $NTHREADS - | maskfilter - dilate preproc_mask_PA.mif -npass 8 -nthreads $NTHREADS # optional
