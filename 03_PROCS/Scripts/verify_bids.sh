@@ -5,9 +5,9 @@
 # ==============================
 
 if [[ "$1" == "--controls" ]]; then
-    dataset_dir="../dataset-HCP"
+    dataset_dir="../PROC_DATA/dataset-HCP"
 else
-    dataset_dir="../dataset"
+    dataset_dir="../PROC_DATA/dataset"
 fi
 
 trash_dir="../trash"   # root folder for extra files

@@ -1,17 +1,23 @@
 #!/bin/bash
 set -e
 
+# Root processing directory (relative to current script location)
+PROC_DIR="$(pwd)/../PROC_DATA"
+
 # Folder with melodic results
 if [[ "$1" == "--controls" ]]; then
-    DERIVATIVES="/projetos/PRJ1509_MA_FORMACAO/03_PROCS/PROC_DATA/derivatives"
+    echo "👉 CONTROLS mode (HCP)"
+    DERIVATIVES="${PROC_DIR}/derivatives-HCP"
 else
-    DERIVATIVES="/projetos/PRJ1509_MA_FORMACAO/03_PROCS/PROC_DATA/derivatives-HCP"
+    echo "👉 NORMAL mode"
+    DERIVATIVES="${PROC_DIR}/derivatives"
 fi
+
 
 MELODIC_ROOT="${DERIVATIVES}/melodic"
 
 # RSN atlas (Smith 2009)
-ATLAS="/home/alexandra/rs-fMRI/atlases/PNAS_Smith09_rsn10.nii.gz"
+ATLAS="$(pwd)/..//atlases/PNAS_Smith09_rsn10.nii.gz"
 
 docker_image="alerokhin/fsl6.0"
 

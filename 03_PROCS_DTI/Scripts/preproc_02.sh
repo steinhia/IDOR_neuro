@@ -1,5 +1,8 @@
 #!/bin/bash -e
 umask 0002
+#!/bin/bash
+export PATH=/projetos/PRJ1509_MA_FORMACAO/03_PROCS_DTI/install/mrtrix3/bin:$PATH
+
 # SUBJID=SUBJ050
 # cd /dados1/PROJETOS/PRJ1509_MA_FORMACAO/03_PROCS/SCRIPTS/MRTRIX-BIDS
 # idor_sub -n 8 -q mrtrix.q -N "PREPROC_$SUBJID" ./preprocessing_hcp.sh $SUBJID /dados1/PROJETOS/PRJ1509_MA_FORMACAO/03_PROCS/RAW_DATA/BIDS /dados1/PROJETOS/PRJ1509_MA_FORMACAO/03_PROCS/PROC_DATA/MULTI_DWI/HCP
@@ -54,8 +57,8 @@ cd $PREPROCDIR
 # denoising
 [ ! -f dwi_AP.mif ] && mrcat ../raw/dwi_1.mif ../raw/dwi_3.mif dwi_AP.mif
 [ ! -f dwi_PA.mif ] && mrcat ../raw/dwi_2.mif ../raw/dwi_4.mif dwi_PA.mif
-[ ! -f preproc_mask_AP.mif ] && dwi2mask -clean_scale 0 -bvalue_scaling 1 dwi_AP.mif -nthreads $NTHREADS - | maskfilter - dilate preproc_mask_AP.mif -npass 8 -nthreads $NTHREADS # optional
-[ ! -f preproc_mask_PA.mif ] && dwi2mask -clean_scale 0 -bvalue_scaling 1 dwi_PA.mif -nthreads $NTHREADS - | maskfilter - dilate preproc_mask_PA.mif -npass 8 -nthreads $NTHREADS # optional
+[ ! -f preproc_mask_AP.mif ] && dwi2mask -clean_scale 0 dwi_AP.mif -nthreads $NTHREADS - | maskfilter - dilate preproc_mask_AP.mif -npass 8 -nthreads $NTHREADS # optional
+[ ! -f preproc_mask_PA.mif ] && dwi2mask -clean_scale 0 dwi_PA.mif -nthreads $NTHREADS - | maskfilter - dilate preproc_mask_PA.mif -npass 8 -nthreads $NTHREADS # optional
 [ ! -f noiselevel_AP.mif ] && time dwidenoise dwi_AP.mif denoise_AP.mif -noise noiselevel_AP.mif -mask preproc_mask_AP.mif -nthreads $NTHREADS # (real 3m05s)
 [ ! -f noiselevel_PA.mif ] && time dwidenoise dwi_PA.mif denoise_PA.mif -noise noiselevel_PA.mif -mask preproc_mask_PA.mif -nthreads $NTHREADS # (real 3m05s)
 # mrcalc dwi_AP.mif denoise_AP.mif -sub preproc_mask_AP.mif -mult - | mrview -    # QA inspection
@@ -72,7 +75,7 @@ cd $PREPROCDIR
 #mrconvert b0AP.mif -coord 3 0 -nthreads $NTHREADS - | mrcat - b0PA.mif b0pair.mif -axis 3 -force && rm b0AP.mif b0PA.mif
 
 [ ! -f degibbs.mif ] && mrcat degibbs_AP.mif degibbs_PA.mif degibbs.mif
-[ ! -f geomcorr.mif ] && time dwipreproc degibbs.mif geomcorr.mif -rpe_header -eddy_options "--repol --ol_type=both --mb=4 --verbose --data_is_shelled "
+[ ! -f geomcorr.mif ] && time dwifslpreproc degibbs.mif geomcorr.mif -rpe_header -eddy_options "--repol --ol_type=both --mb=4 --verbose --data_is_shelled "
 
 # bias field correction
 [ ! -f biascorr.mif ] && time dwibiascorrect -ants geomcorr.mif biascorr.mif -bias biasfield.mif -nthreads $NTHREADS

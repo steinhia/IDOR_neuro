@@ -4,10 +4,14 @@
 # Dataset selection via argument
 # ==============================
 
+# === ROOT DIRECTORY ===
+PROC_DIR="$(pwd)/../PROC_DATA"
+
+# === DERIVATIVES PATH ===
 if [[ "$1" == "--controls" ]]; then
-    derivatives_dir="/projetos/PRJ1509_MA_FORMACAO/03_PROCS/PROC_DATA/derivatives-HCP/fmriprep"
+    derivatives_dir="${PROC_DIR}/derivatives-HCP/fmriprep"
 else
-    derivatives_dir="/projetos/PRJ1509_MA_FORMACAO/03_PROCS/PROC_DATA/derivatives/fmriprep"
+    derivatives_dir="${PROC_DIR}/derivatives/fmriprep"
 fi
 
 # Directory containing fmriprep results

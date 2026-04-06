@@ -11,9 +11,10 @@ Main scripts:
 * `verify_fmriprep.sh`
 * `launch_melodic.sh`
 * `verify_melodic.sh`
-* `correlations_ICA_network.sh`
 * `launch_atlas.sh`
-* `launch_xcpd.sh` / `launch_xcpd_PCA.sh`
+* `visualize_correlations.py`
+* `correlations_atlas.py`
+* `launch_xcpd.sh` 
 * `verify_xcpd.sh`
 
 ## Data Organization & Paths
@@ -99,13 +100,39 @@ bash verify_bids.sh
 
 ---
 
-### 4. Run fMRIPrep
+### 4. Run fMRIPrep (fMRI preprocessing)
 
-Preprocessing (motion correction, normalization, etc.):
+This script runs fMRIPrep to preprocess raw fMRI data for all subjects.
+
+#### Processing
+- For each subject:
+  - Load raw BIDS dataset
+  - Perform standard preprocessing using fMRIPrep (via Docker):
+    - motion correction
+    - spatial normalization to MNI space
+    - brain extraction and masking
+    - anatomical (T1w) processing
+  - Outputs are generated in both native (T1w) and MNI space
 
 ```bash
 bash launch_fmriprep.sh
 ```
+
+#### Output
+- Preprocessed data stored in:
+
+
+- Key files:
+  - `*_desc-preproc_bold.nii.gz`: preprocessed BOLD signal
+  - `*_desc-brain_mask.nii.gz`: brain mask
+  - `sub-XXX.html`: quality control report
+
+#### Features
+- Automatically skips already processed subjects
+- Supports two datasets:
+  - patients (default)
+  - controls (HCP) via `--controls`
+
 
 ---
 
@@ -121,11 +148,30 @@ bash verify_fmriprep.sh
 
 ### 6. Run ICA decomposition (MELODIC)
 
-Independent Component Analysis on resting-state:
+This script runs ICA decomposition (MELODIC, FSL) on preprocessed resting-state fMRI data from fMRIPrep.
+
+#### Processing
+- For each subject:
+  - Load preprocessed BOLD data and brain mask from fMRIPrep
+  - Run MELODIC (Independent Component Analysis) using Docker (FSL)
+  - Decompose the BOLD signal into spatially independent components (ICs)
 
 ```bash
 bash launch_melodic.sh
 ```
+
+#### Output
+- One `.ica` folder per subject: derivatives/melodic/sub-XXX/func/*.ica
+
+- Contains:
+  - `melodic_IC.nii.gz`: spatial maps of ICA components
+  - `melodic_mix`: time series of components
+  - QC report (`report.html`)
+
+#### Purpose
+- Identify resting-state networks and noise components
+- Provide input for RSN matching (next step)
+
 
 ---
 
@@ -139,29 +185,117 @@ bash verify_melodic.sh
 
 ---
 
-### 8. Compute ICA and network correlations
+### 8 - RSN matching from ICA components
 
-Perform Independant Component Analysis on the Melodic results
-
-```bash
-bash correlations_ICA_network.sh
-```
-
----
-
-### 9. Atlas-based analysis (TODO)
 
 ```bash
 bash launch_atlas.sh
 ```
 
+This script performs spatial matching between subject-specific ICA components (from MELODIC) and a reference set of resting-state networks (RSNs; Smith et al., 2009).
+
+#### Input
+- Precomputed MELODIC outputs:
+  - `melodic_IC.nii.gz` (4D ICA components)
+  - `mean.nii.gz` (reference image)
+- RSN atlas:
+  - `PNAS_Smith09_rsn10.nii.gz`
+
+#### Processing steps
+For each subject:
+1. Compute transformation from MNI space to ICA space (FLIRT)
+2. Split ICA components into individual 3D volumes (`fslsplit`)
+3. Resample RSN atlas into subject ICA space
+4. Compute spatial correlations between each ICA component and each RSN (`fslcc`)
+
+#### Output
+Results are stored in: derivatives[-HCP]/melodic/sub-XXX/func/*.ica/
+
+
+Main outputs:
+- `rsn_matching/PNAS_Smith09_rsn10_resampled.nii.gz`  
+  → RSN atlas in subject space
+- `rsn_matching/melodic_IC_*.nii.gz`  
+  → individual ICA components
+- `ica_rsn_correlations.txt`  
+  → matrix of spatial correlations (RSN × ICA components)
+
+#### Interpretation
+- Each value represents the spatial correlation between an ICA component and a reference RSN.
+- For each RSN, the best-matching ICA component can be identified (e.g., maximum correlation).
+- These values can be used for group-level analyses or correlated with behavioral measures.
+
 ---
 
-### 10. Post-processing (XCP-D) optional, unfinished work
+### 9 - RSN matching inspection
+
+This script provides a quick quality check of ICA ↔ RSN correlations.
+
+
+```python
+python visualize_correlations.py
+```
+
+#### Features
+- Displays top 2 ICA components per RSN
+- Shows which component is selected (highest correlation)
+- Applies a threshold (e.g., r ≥ 0.05)
+- Reports how many RSNs pass the threshold
+
+#### Output
+- `rsn_matching_inspection.csv`:
+  - subject, RSN, IC, correlation, rank (top1/top2), selected
+
+#### Purpose
+- Verify that RSN matching is meaningful
+- Ensure enough networks exceed the correlation threshold
+- Detect ambiguous or weak matches
+
+
+### 10 - Connectivity ↔ Behavioral correlation analysis
+
+This script computes associations between resting-state networks (RSNs), derived from ICA decomposition, and behavioral scores across subjects.
+
+#### Input
+- ICA ↔ RSN correlation files:
+  - `ica_rsn_correlations.txt` (one per subject, from RSN matching step)
+- Behavioral scores:
+  - `behavioral_scores.csv` (must include `subject_id` column)
+
+#### Processing steps
+1. Load ICA ↔ RSN correlation files for all subjects
+2. For each RSN, select the ICA component with the highest correlation (best match)
+3. Apply a correlation threshold (e.g., r ≥ 0.05):
+   - values below threshold are set to 0 (no reliable match)
+4. Construct a subject × RSN matrix
+5. Align imaging data with behavioral scores
+6. Compute Pearson correlations between RSN values and behavioral measures
+
+```python
+python correlations_atlas.py
+```
+
+#### Output
+- `rsn_behavior_correlations.csv`
+  - columns:
+    - `RSN`: network index
+    - `score`: behavioral variable
+    - `r`: correlation coefficient
+    - `p`: p-value
+
+#### Interpretation
+- Each result reflects the relationship between a functional network (RSN) and a behavioral measure.
+- Thresholding ensures that only meaningful ICA–RSN matches contribute to the analysis.
+- Multiple comparison correction (e.g., FDR) is recommended.
+
+#### Purpose
+- Identify brain–behavior relationships at the network level using ICA-derived resting-state components.
+
+
+### 10. Post-processing (XCP-D) optional, unfinished work (not useful if using ICA)
 
 ```bash
 bash launch_xcpd.sh
-bash launch_xcpd_PCA.sh
 ```
 
 Verify:
@@ -239,23 +373,28 @@ bash verify_melodic.sh --controls
 
 ---
 
-### 8. ICA and network correlations
 
-```bash
-bash correlations_ICA_network.sh --controls
-```
-
----
-
-### 9. Atlas analysis
+### 8. Atlas analysis
 
 ```bash
 bash launch_atlas.sh --controls
 ```
 
+### 9 - RSN matching inspection
+
+
+```python
+python visualize_correlations.py --controls
+```
 ---
 
-### 10. Post-processing (XCP-D)
+### 10 - Connectivity ↔ Behavioral correlation analysis
+
+```python
+python correlations_atlas.py
+```
+
+### 11. Post-processing (XCP-D)
 
 ```bash
 bash launch_xcpd.sh --controls
@@ -289,10 +428,9 @@ bash verify_xcpd.sh --controls
 * verify_fmriprep.sh
 * launch_melodic.sh
 * verify_melodic.sh
-* correlations_ICA_network.sh
 * launch_atlas.sh
-* launch_xcpd.sh
-* verify_xcpd.sh
+* visualize_correlations.py
+* correlations_atlas.py
 ```
 
 ### Controls
@@ -305,10 +443,9 @@ bash verify_xcpd.sh --controls
 * verify_fmriprep.sh --controls
 * launch_melodic.sh --controls
 * verify_melodic.sh --controls
-* correlations_ICA_network.sh --controls
 * launch_atlas.sh --controls
-* launch_xcpd.sh --controls
-* verify_xcpd.sh --controls
+* visualize_correlations.py --controls
+* correlations_atlas.py
 ```
 
 ---

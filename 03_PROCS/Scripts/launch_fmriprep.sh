@@ -23,25 +23,26 @@ done
 #  CONFIGURATION
 # ==============================
 
-BASE_DIR="/projetos/PRJ1509_MA_FORMACAO/03_PROCS/PROC_DATA"
-SCRIPT_DIR="$(pwd)"
+# === ROOT DIRECTORY ===
+# Assumes script is run from the scripts/ folder
+PROC_DIR="$(pwd)/../PROC_DATA"
 
-export fs_dir="${BASE_DIR}/freesurfer"
-export work_dir="${BASE_DIR}/work"
-export tmp_dir="${BASE_DIR}/tmp"
-export fs_license="${SCRIPT_DIR}/../Licence/license.txt"
+# === COMMON PATHS ===
+export fs_dir="${PROC_DIR}/freesurfer"
+export work_dir="${PROC_DIR}/work"
+export tmp_dir="${PROC_DIR}/tmp"
+export fs_license="$(pwd)/../Licence/license.txt"
 
+# === DATASET SELECTION ===
 if [[ $USE_CONTROLS -eq 1 ]]; then
   echo "🧠 Mode CONTROLS (HCP)"
-  export dataset_dir="${SCRIPT_DIR}/../PROC_DATA/dataset-HCP"
-  export derivatives_dir="${BASE_DIR}/derivatives-HCP"
+  export dataset_dir="${PROC_DIR}/dataset-HCP"
+  export derivatives_dir="${PROC_DIR}/derivatives-HCP"
 else
   echo "🧠 Mode PATIENTS"
-  export dataset_dir="${SCRIPT_DIR}/../PROC_DATA/dataset"
-  export derivatives_dir="${BASE_DIR}/derivatives"
+  export dataset_dir="${PROC_DIR}/dataset"
+  export derivatives_dir="${PROC_DIR}/derivatives"
 fi
-
-export fmriprep_dir="${derivatives_dir}/fmriprep"
 
 # ==============================
 #  CREATE FOLDERS
@@ -59,8 +60,8 @@ subjects=$(find "$dataset_dir" -maxdepth 1 -type d -name "sub-*" \
 
 
 
-subjects=("720 739 711 366")
-#subjects=("048 721 010 003")
+#subjects=("720 739 711 366")
+subjects=("048 721 010 003")
 
 echo "=============================="
 echo "📋 Sujets détectés :"

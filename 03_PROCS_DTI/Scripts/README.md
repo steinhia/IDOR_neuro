@@ -46,7 +46,8 @@ Converts DICOM → NIfTI using `dcm2niix`.
 
 ---
 
-### `preproc_01.sh`
+### `preproc_01.sh` and `launch_all_preproc_01.sh` 
+
 
 First stage of MRtrix preprocessing.
 
@@ -60,7 +61,7 @@ First stage of MRtrix preprocessing.
 
 ---
 
-### `preproc_02.sh`
+### `preproc_02.sh` and `launch_all_preproc_02.sh` 
 
 Second stage of MRtrix preprocessing.
 
@@ -84,9 +85,9 @@ clean_data_from_rs.sh
    ↓
 convert_data.sh
    ↓
-preproc_01.sh
+launch_all_preproc_01.sh
    ↓
-preproc_02.sh
+launch_all_preproc_02.sh
 ```
 
 ---

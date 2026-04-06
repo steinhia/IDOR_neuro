@@ -1,12 +1,14 @@
 #!/bin/bash
 
-# Folder with melodic results
-if [[ "$1" == "--controls" ]]; then
-    derivatives_dir="/projetos/PRJ1509_MA_FORMACAO/03_PROCS/PROC_DATA/derivatives-HCP/melodic"
-else
-    derivatives_dir="/projetos/PRJ1509_MA_FORMACAO/03_PROCS/PROC_DATA/derivatives/melodic"
-fi
+# === ROOT DIRECTORY ===
+PROC_DIR="$(pwd)/../PROC_DATA"
 
+# === MELODIC OUTPUT DIRECTORY ===
+if [[ "$1" == "--controls" ]]; then
+    derivatives_dir="${PROC_DIR}/derivatives-HCP/melodic"
+else
+    derivatives_dir="${PROC_DIR}/derivatives/melodic"
+fi
 
 declare -A expected_folder
 
