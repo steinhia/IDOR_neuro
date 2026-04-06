@@ -13,6 +13,7 @@ Main scripts:
 * `verify_melodic.sh`
 * `launch_atlas.sh`
 * `visualize_correlations.py`
+* `launch_reconstruction.py`
 * `correlations_atlas.py`
 * `launch_xcpd.sh` 
 * `verify_xcpd.sh`
@@ -35,10 +36,12 @@ All paths are relative to the project root:
 |   |-- derivatives/          # Patients outputs
 |   |   |-- fmriprep/         # fMRIPrep outputs (sub-XXX, HTML reports)
 |   |   `-- melodic/          # ICA (MELODIC results)
+|   |   |__ reconstruction/   # reconstruction output
 |   |
 |   |-- derivatives-HCP/      # Controls outputs
 |   |   |-- fmriprep/
 |   |   `-- melodic/
+|   |   |__ reconstruction/   
 |   |
 |   `-- freesurfer/           # FreeSurfer outputs
 |
@@ -59,12 +62,18 @@ This pipeline processes two types of datasets:
 
 Each dataset follows a similar structure:
 
-1. Raw data cleaning
-2. Extraction to NIfTI
-3. BIDS formatting
-4. Preprocessing (fMRIPrep)
-5. ICA decomposition (MELODIC)
-6. Post-processing / analysis
+1. Clean raw DICOM data
+2. Convert DICOM → BIDS (NIfTI)
+3. Verify BIDS dataset
+4. Run fMRIPrep (fMRI preprocessing)
+5. Verify fMRIPrep outputs
+6. Run ICA decomposition (MELODIC)
+7. Verify MELODIC outputs
+8. RSN matching from ICA components
+9. RSN matching inspection
+10. Reconstruction of RSNs
+11. Run ICA decomposition (MELODIC)
+12. Connectivity ↔ Behavioral correlation analysis
 
 ---
 
@@ -229,30 +238,116 @@ Main outputs:
 
 ### 9 - RSN matching inspection
 
-This script provides a quick quality check of ICA ↔ RSN correlations.
+This script provides a quick quality check of ICA ↔ RSN correlations and select highest correlations (if above threshold) to be used for reconstruction.
 
+####  Run the extraction script
 
 ```python
 python visualize_correlations.py
 ```
 
+#### 📄 Output
+
+This step generates:
+
+- A CSV file for inspection:
+```bash
+rsn_matching_inspection.csv
+```
+
+- A TSV file for reconstruction:
+```bash
+rsn_selected_for_reconstruction.tsv
+```
+
+## 🧾 TSV Format
+
+```text
+subject    RSN    IC
+003        4      12
+003        7      21
+...
+```
+
+- `subject` → subject ID (without `sub-`)
+- `RSN` → network ID (1–10)
+- `IC` → selected component
+
+
 #### Features
 - Displays top 2 ICA components per RSN
+- Shows correlation values
+- Applies a threshold (e.g., r ≥ 0.1)
 - Shows which component is selected (highest correlation)
-- Applies a threshold (e.g., r ≥ 0.05)
-- Reports how many RSNs pass the threshold
-
-#### Output
-- `rsn_matching_inspection.csv`:
-  - subject, RSN, IC, correlation, rank (top1/top2), selected
 
 #### Purpose
-- Verify that RSN matching is meaningful
-- Ensure enough networks exceed the correlation threshold
-- Detect ambiguous or weak matches
+This step is useful to:
+- Validate automatic selection
+- Adjust threshold if needed
+- Detect misclassified components
 
+## 🧠 RSN Labels
 
-### 10 - Connectivity ↔ Behavioral correlation analysis
+```text
+1 - Visual
+2 - Visual
+3 - Visual
+4 - Default Mode Network
+5 - Cerebellum
+6 - Sensorimotor
+7 - Auditory
+8 - Executive Control
+9 - Frontoparietal
+10 - Frontoparietal
+```
+
+### 10. Reconstruction of RSNs
+
+This step reconstructs each RSN by summing selected ICs.
+
+---
+
+#### ▶️ Run reconstruction
+
+```bash
+bash launch_reconstruction.sh
+```
+
+#### 📁 Output structure
+
+```bash
+../PROC_DATA/derivatives/reconstruction/
+    sub-003/
+        sub-003_RSN-4_DefaultModeNetwork.nii.gz
+        sub-003_RSN-1_Visual.nii.gz
+        ...
+```
+
+#### ⚙️ How it works
+
+For each subject:
+
+1. Reads selected ICs from TSV
+2. Finds corresponding MELODIC directory
+3. Loads IC files from:
+
+```bash
+melodic/sub-XXX/func/*.ica/rsn_matching/
+```
+
+4. Reconstructs RSN using:
+
+```bash
+fslmaths IC1 -add IC2 -add IC3 ...
+```
+
+5. Applies threshold:
+
+```bash
+fslmaths output.nii.gz -thr 5.0 output.nii.gz
+```
+
+### 11 - Connectivity ↔ Behavioral correlation analysis
 
 This script computes associations between resting-state networks (RSNs), derived from ICA decomposition, and behavioral scores across subjects.
 
@@ -292,7 +387,7 @@ python correlations_atlas.py
 - Identify brain–behavior relationships at the network level using ICA-derived resting-state components.
 
 
-### 10. Post-processing (XCP-D) optional, unfinished work (not useful if using ICA)
+### 12. Post-processing (XCP-D) optional, unfinished work (not useful if using ICA)
 
 ```bash
 bash launch_xcpd.sh
@@ -387,14 +482,19 @@ bash launch_atlas.sh --controls
 python visualize_correlations.py --controls
 ```
 ---
+### 10 - Reconstruction of RSNs
 
-### 10 - Connectivity ↔ Behavioral correlation analysis
+```bash
+bash launch_reconstruction.sh
+```
+
+### 11 - Connectivity ↔ Behavioral correlation analysis
 
 ```python
 python correlations_atlas.py
 ```
 
-### 11. Post-processing (XCP-D)
+### 12. Post-processing (XCP-D)
 
 ```bash
 bash launch_xcpd.sh --controls
@@ -459,4 +559,34 @@ Final outputs include:
 * Network correlation matrices (`csv/`)
 * Atlas-based metrics
 
+
+# Resting-State Network (RSN) Analysis Pipeline
+
+This repository provides a complete pipeline to:
+
+1. Extract Independent Components (ICs) from MELODIC
+2. Match them to known Resting-State Networks (RSNs)
+3. Manually inspect and validate results
+4. Reconstruct RSN maps per subject
+
+
+# 🧠 2. RSN Matching (Extraction)
+
+
+---
+
+# 🔍 3. Visualization / Manual Inspection
+
+A Python script allows you to inspect the matching results.
+
+## ▶️ Run visualization
+
+```bash
+python visualize_rsn.py
+```
+
+---
+
+
+---
 
