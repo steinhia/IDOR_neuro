@@ -1,0 +1,235 @@
+subject,RSN,RSN_name,IC,corr,rank,selected
+HCD1796577,1,Visual,64,0.365,top1,True
+HCD1796577,1,Visual,31,0.145,top2,False
+HCD1796577,2,Visual,41,0.352,top1,True
+HCD1796577,2,Visual,31,0.121,top2,False
+HCD1796577,3,Visual,43,0.265,top1,True
+HCD1796577,3,Visual,49,0.111,top2,False
+HCD1796577,4,Default Mode Network,89,0.144,top1,True
+HCD1796577,4,Default Mode Network,64,0.101,top2,False
+HCD1796577,6,Sensorimotor,50,0.157,top1,True
+HCD1796577,6,Sensorimotor,49,0.136,top2,False
+HCD1796577,7,Auditory,44,0.175,top1,True
+HCD1796577,7,Auditory,40,0.095,top2,False
+HCD1796577,8,Executive Control,45,0.125,top1,True
+HCD1796577,8,Executive Control,40,0.099,top2,False
+HCD1796577,9,Frontoparietal,37,0.203,top1,True
+HCD1796577,9,Frontoparietal,39,0.131,top2,False
+HCD1796577,10,Frontoparietal,57,0.188,top1,True
+HCD1796577,10,Frontoparietal,37,0.12,top2,False
+HCD2155140,1,Visual,24,0.175,top1,True
+HCD2155140,1,Visual,42,0.075,top2,False
+HCD2155140,2,Visual,41,0.15,top1,True
+HCD2155140,2,Visual,24,0.115,top2,False
+HCD2155140,3,Visual,32,0.129,top1,True
+HCD2155140,3,Visual,24,0.112,top2,False
+HCD2155140,4,Default Mode Network,34,0.203,top1,True
+HCD2155140,4,Default Mode Network,27,0.11,top2,False
+HCD2155140,6,Sensorimotor,38,0.132,top1,True
+HCD2155140,6,Sensorimotor,65,0.083,top2,False
+HCD2155140,7,Auditory,39,0.132,top1,True
+HCD2155140,7,Auditory,38,0.109,top2,False
+HCD2155140,8,Executive Control,42,0.126,top1,True
+HCD2155140,8,Executive Control,30,0.112,top2,False
+HCD2155140,9,Frontoparietal,16,0.189,top1,True
+HCD2155140,9,Frontoparietal,30,0.168,top2,False
+HCD2155140,10,Frontoparietal,10,0.196,top1,True
+HCD2155140,10,Frontoparietal,31,0.141,top2,False
+HCD0919562,1,Visual,46,0.221,top1,True
+HCD0919562,1,Visual,18,0.217,top2,False
+HCD0919562,2,Visual,53,0.145,top1,True
+HCD0919562,2,Visual,18,0.118,top2,False
+HCD0919562,3,Visual,29,0.205,top1,True
+HCD0919562,3,Visual,18,0.112,top2,False
+HCD0919562,4,Default Mode Network,26,0.282,top1,True
+HCD0919562,4,Default Mode Network,56,0.104,top2,False
+HCD0919562,6,Sensorimotor,40,0.184,top1,True
+HCD0919562,6,Sensorimotor,38,0.107,top2,False
+HCD0919562,7,Auditory,23,0.098,top1,True
+HCD0919562,7,Auditory,43,0.097,top2,False
+HCD0919562,8,Executive Control,43,0.114,top1,True
+HCD0919562,8,Executive Control,48,0.085,top2,False
+HCD0919562,9,Frontoparietal,32,0.181,top1,True
+HCD0919562,9,Frontoparietal,12,0.112,top2,False
+HCD0919562,10,Frontoparietal,42,0.172,top1,True
+HCD0919562,10,Frontoparietal,47,0.117,top2,False
+HCD0245030,1,Visual,58,0.314,top1,True
+HCD0245030,1,Visual,40,0.146,top2,False
+HCD0245030,2,Visual,66,0.254,top1,True
+HCD0245030,2,Visual,82,0.12,top2,False
+HCD0245030,3,Visual,60,0.2,top1,True
+HCD0245030,3,Visual,107,0.127,top2,False
+HCD0245030,4,Default Mode Network,55,0.213,top1,True
+HCD0245030,4,Default Mode Network,88,0.144,top2,False
+HCD0245030,6,Sensorimotor,87,0.158,top1,True
+HCD0245030,6,Sensorimotor,76,0.124,top2,False
+HCD0245030,7,Auditory,115,0.155,top1,True
+HCD0245030,7,Auditory,87,0.132,top2,False
+HCD0245030,8,Executive Control,37,0.165,top1,True
+HCD0245030,8,Executive Control,69,0.124,top2,False
+HCD0245030,9,Frontoparietal,61,0.155,top1,True
+HCD0245030,9,Frontoparietal,24,0.146,top2,False
+HCD0245030,10,Frontoparietal,51,0.225,top1,True
+HCD0245030,10,Frontoparietal,45,0.125,top2,False
+HCD0152932,1,Visual,47,0.202,top1,True
+HCD0152932,1,Visual,59,0.166,top2,False
+HCD0152932,2,Visual,39,0.218,top1,True
+HCD0152932,2,Visual,47,0.112,top2,False
+HCD0152932,3,Visual,40,0.2,top1,True
+HCD0152932,3,Visual,39,0.097,top2,False
+HCD0152932,4,Default Mode Network,53,0.188,top1,True
+HCD0152932,4,Default Mode Network,21,0.159,top2,False
+HCD0152932,6,Sensorimotor,24,0.144,top1,True
+HCD0152932,6,Sensorimotor,46,0.115,top2,False
+HCD0152932,7,Auditory,13,0.206,top1,True
+HCD0152932,7,Auditory,29,0.113,top2,False
+HCD0152932,8,Executive Control,50,0.139,top1,True
+HCD0152932,8,Executive Control,42,0.102,top2,False
+HCD0152932,9,Frontoparietal,28,0.164,top1,True
+HCD0152932,9,Frontoparietal,33,0.131,top2,False
+HCD0152932,10,Frontoparietal,73,0.15,top1,True
+HCD0152932,10,Frontoparietal,8,0.147,top2,False
+HCD2122125,1,Visual,36,0.215,top1,True
+HCD2122125,1,Visual,38,0.071,top2,False
+HCD2122125,2,Visual,36,0.071,top1,True
+HCD2122125,2,Visual,5,0.07,top2,False
+HCD2122125,3,Visual,35,0.204,top1,True
+HCD2122125,3,Visual,70,0.1,top2,False
+HCD2122125,4,Default Mode Network,39,0.204,top1,True
+HCD2122125,4,Default Mode Network,27,0.137,top2,False
+HCD2122125,6,Sensorimotor,42,0.135,top1,True
+HCD2122125,6,Sensorimotor,38,0.092,top2,False
+HCD2122125,7,Auditory,38,0.132,top1,True
+HCD2122125,7,Auditory,45,0.108,top2,False
+HCD2122125,8,Executive Control,27,0.082,top1,True
+HCD2122125,8,Executive Control,47,0.072,top2,False
+HCD2122125,9,Frontoparietal,48,0.177,top1,True
+HCD2122125,9,Frontoparietal,40,0.176,top2,False
+HCD2122125,10,Frontoparietal,44,0.237,top1,True
+HCD2122125,10,Frontoparietal,42,0.078,top2,False
+HCD0988682,1,Visual,47,0.238,top1,True
+HCD0988682,1,Visual,71,0.163,top2,False
+HCD0988682,2,Visual,47,0.183,top1,True
+HCD0988682,2,Visual,48,0.11,top2,False
+HCD0988682,3,Visual,48,0.258,top1,True
+HCD0988682,3,Visual,47,0.13,top2,False
+HCD0988682,4,Default Mode Network,39,0.228,top1,True
+HCD0988682,4,Default Mode Network,34,0.176,top2,False
+HCD0988682,6,Sensorimotor,65,0.137,top1,True
+HCD0988682,6,Sensorimotor,58,0.097,top2,False
+HCD0988682,7,Auditory,58,0.132,top1,True
+HCD0988682,7,Auditory,32,0.108,top2,False
+HCD0988682,8,Executive Control,40,0.127,top1,True
+HCD0988682,8,Executive Control,32,0.116,top2,False
+HCD0988682,9,Frontoparietal,38,0.204,top1,True
+HCD0988682,9,Frontoparietal,42,0.167,top2,False
+HCD0988682,10,Frontoparietal,37,0.312,top1,True
+HCD0988682,10,Frontoparietal,67,0.114,top2,False
+HCD0267242,1,Visual,32,0.301,top1,True
+HCD0267242,1,Visual,22,0.056,top2,False
+HCD0267242,2,Visual,38,0.153,top1,True
+HCD0267242,2,Visual,32,0.118,top2,False
+HCD0267242,3,Visual,12,0.243,top1,True
+HCD0267242,3,Visual,38,0.116,top2,False
+HCD0267242,4,Default Mode Network,46,0.169,top1,True
+HCD0267242,4,Default Mode Network,36,0.162,top2,False
+HCD0267242,6,Sensorimotor,22,0.141,top1,True
+HCD0267242,6,Sensorimotor,43,0.091,top2,False
+HCD0267242,7,Auditory,22,0.189,top1,True
+HCD0267242,7,Auditory,42,0.071,top2,False
+HCD0267242,8,Executive Control,27,0.129,top1,True
+HCD0267242,8,Executive Control,44,0.127,top2,False
+HCD0267242,9,Frontoparietal,17,0.205,top1,True
+HCD0267242,9,Frontoparietal,35,0.127,top2,False
+HCD0267242,10,Frontoparietal,20,0.196,top1,True
+HCD0267242,10,Frontoparietal,48,0.092,top2,False
+HCD0183438,1,Visual,45,0.167,top1,True
+HCD0183438,1,Visual,44,0.055,top2,False
+HCD0183438,2,Visual,35,0.104,top1,True
+HCD0183438,2,Visual,62,0.05,top2,False
+HCD0183438,3,Visual,35,0.194,top1,True
+HCD0183438,3,Visual,66,0.071,top2,False
+HCD0183438,4,Default Mode Network,34,0.215,top1,True
+HCD0183438,4,Default Mode Network,59,0.15,top2,False
+HCD0183438,6,Sensorimotor,66,0.112,top1,True
+HCD0183438,6,Sensorimotor,44,0.08,top2,False
+HCD0183438,7,Auditory,46,0.136,top1,True
+HCD0183438,7,Auditory,44,0.1,top2,False
+HCD0183438,8,Executive Control,41,0.154,top1,True
+HCD0183438,8,Executive Control,62,0.124,top2,False
+HCD0183438,9,Frontoparietal,30,0.229,top1,True
+HCD0183438,9,Frontoparietal,67,0.108,top2,False
+HCD0183438,10,Frontoparietal,32,0.236,top1,True
+HCD0183438,10,Frontoparietal,25,0.135,top2,False
+HCD0146331,1,Visual,31,0.315,top1,True
+HCD0146331,1,Visual,24,0.251,top2,False
+HCD0146331,2,Visual,50,0.28,top1,True
+HCD0146331,2,Visual,24,0.16,top2,False
+HCD0146331,3,Visual,73,0.203,top1,True
+HCD0146331,3,Visual,34,0.148,top2,False
+HCD0146331,4,Default Mode Network,30,0.195,top1,True
+HCD0146331,4,Default Mode Network,31,0.125,top2,False
+HCD0146331,6,Sensorimotor,35,0.124,top1,True
+HCD0146331,6,Sensorimotor,52,0.11,top2,False
+HCD0146331,7,Auditory,51,0.113,top1,True
+HCD0146331,7,Auditory,73,0.105,top2,False
+HCD0146331,8,Executive Control,51,0.14,top1,True
+HCD0146331,8,Executive Control,13,0.086,top2,False
+HCD0146331,9,Frontoparietal,54,0.169,top1,True
+HCD0146331,9,Frontoparietal,30,0.083,top2,False
+HCD0146331,10,Frontoparietal,30,0.147,top1,True
+HCD0146331,10,Frontoparietal,58,0.141,top2,False
+HCD1842558,1,Visual,25,0.304,top1,True
+HCD1842558,1,Visual,60,0.173,top2,False
+HCD1842558,2,Visual,40,0.245,top1,True
+HCD1842558,2,Visual,73,0.099,top2,False
+HCD1842558,3,Visual,32,0.18,top1,True
+HCD1842558,3,Visual,60,0.11,top2,False
+HCD1842558,4,Default Mode Network,49,0.196,top1,True
+HCD1842558,4,Default Mode Network,70,0.159,top2,False
+HCD1842558,6,Sensorimotor,44,0.136,top1,True
+HCD1842558,6,Sensorimotor,71,0.097,top2,False
+HCD1842558,7,Auditory,44,0.138,top1,True
+HCD1842558,7,Auditory,67,0.136,top2,False
+HCD1842558,8,Executive Control,55,0.11,top1,True
+HCD1842558,8,Executive Control,49,0.09,top2,False
+HCD1842558,9,Frontoparietal,31,0.19,top1,True
+HCD1842558,9,Frontoparietal,49,0.14,top2,False
+HCD1842558,10,Frontoparietal,19,0.2,top1,True
+HCD1842558,10,Frontoparietal,17,0.198,top2,False
+HCD2600034,1,Visual,41,0.223,top1,True
+HCD2600034,1,Visual,26,0.096,top2,False
+HCD2600034,2,Visual,23,0.167,top1,True
+HCD2600034,2,Visual,9,0.092,top2,False
+HCD2600034,3,Visual,52,0.193,top1,True
+HCD2600034,3,Visual,41,0.126,top2,False
+HCD2600034,4,Default Mode Network,48,0.174,top1,True
+HCD2600034,4,Default Mode Network,46,0.084,top2,False
+HCD2600034,6,Sensorimotor,56,0.122,top1,True
+HCD2600034,6,Sensorimotor,51,0.084,top2,False
+HCD2600034,7,Auditory,26,0.123,top1,True
+HCD2600034,7,Auditory,44,0.074,top2,False
+HCD2600034,8,Executive Control,41,0.06,top1,True
+HCD2600034,8,Executive Control,63,0.055,top2,False
+HCD2600034,9,Frontoparietal,49,0.113,top1,True
+HCD2600034,9,Frontoparietal,42,0.099,top2,False
+HCD2600034,10,Frontoparietal,38,0.168,top1,True
+HCD2600034,10,Frontoparietal,49,0.068,top2,False
+HCD1196553,1,Visual,55,0.28,top1,True
+HCD1196553,1,Visual,40,0.191,top2,False
+HCD1196553,2,Visual,57,0.167,top1,True
+HCD1196553,2,Visual,40,0.136,top2,False
+HCD1196553,3,Visual,42,0.168,top1,True
+HCD1196553,3,Visual,43,0.058,top2,False
+HCD1196553,4,Default Mode Network,25,0.198,top1,True
+HCD1196553,4,Default Mode Network,43,0.124,top2,False
+HCD1196553,6,Sensorimotor,61,0.135,top1,True
+HCD1196553,6,Sensorimotor,63,0.099,top2,False
+HCD1196553,7,Auditory,54,0.176,top1,True
+HCD1196553,7,Auditory,37,0.11,top2,False
+HCD1196553,8,Executive Control,33,0.163,top1,True
+HCD1196553,8,Executive Control,48,0.098,top2,False
+HCD1196553,9,Frontoparietal,20,0.204,top1,True
+HCD1196553,9,Frontoparietal,36,0.099,top2,False
+HCD1196553,10,Frontoparietal,47,0.193,top1,True
+HCD1196553,10,Frontoparietal,36,0.11,top2,False
